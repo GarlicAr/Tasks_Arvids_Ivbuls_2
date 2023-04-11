@@ -1,0 +1,12 @@
+{
+  "name": "session_1_node",
+  "version": "1.0.0",
+  "description": "Session_1",
+  "main": "example1.js",
+  "scripts": {
+    "example1": "node ./example1.js"
+  },
+  "keywords": [],
+  "author": "Arvids Ivbuls",
+  "license": "ISC"
+}
