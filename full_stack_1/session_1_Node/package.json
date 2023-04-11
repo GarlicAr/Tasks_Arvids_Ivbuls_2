@@ -4,7 +4,10 @@
   "description": "Session_1",
   "main": "example1.js",
   "scripts": {
-    "example1": "node ./example1.js"
+    "example1": "node ./example1.js",
+    "example2": "node ./example2.js",
+    "example3": "node ./example3.js"
+
   },
   "keywords": [],
   "author": "Arvids Ivbuls",
