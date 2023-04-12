@@ -1,18 +1,5 @@
-class Vehicle{
-    protected wheels: number = 0;
-
-    constructor(){
-        this.wheels= 4;
-    }
-
-    public getWheels(): number{
-        return this.wheels;
-    }
-
-    public setWheels(wheels: number):void {
-        this.wheels = wheels;
-    }
-}
+import { Vehicle } from "./modules/Vehicle";
+import { Bicycle } from "./modules/Bicycle";
 
 let w1 = new Vehicle();
 
@@ -24,3 +11,9 @@ let simpleV = new Vehicle();
 
 simpleV = new Vehicle;
 */
+
+
+
+let bicyle = new Bicycle();
+
+console.log(bicyle.getWheels(), bicyle.isLockAviable);
