@@ -9,7 +9,8 @@
     "example3": "node ./example3.js",
     "example4": "node ./example4.js",
     "example5": "node ./example5.js",
-    "example6": "node ./example6.js"
+    "example6": "node ./example6.js",
+    "example7": "node ./example7.js"
   },
   "keywords": [],
   "author": "Arvids Ivbuls",
