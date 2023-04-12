@@ -31,5 +31,39 @@ let simpleCar: Car = {
 
 let simpleCast: Car = simpleDict;
 
+interface Company{
+   address: string,
+   tel: number 
+}
 
-console.log(simpleCar, simpleCast);
+interface HeavyTruck extends Car{
+    cargo_capacity_t: number,
+    company?: Company // Optional
+}
+
+let simpleCompany: Company = {
+    address: "Cirks iela 4",
+    tel: 28949423
+}
+
+let simpleTruck: HeavyTruck = {
+    brand: "Mercedes",
+    km: 1e2,
+    isManual: false,
+    cargo_capacity_t: 30,
+    company: {
+        address: "Zirgu iela 14",
+        tel: 25616175
+    }
+}
+
+let simpleTruck2: HeavyTruck = {
+    brand: "Volvo",
+    km: 5e2,
+    isManual: true,
+    cargo_capacity_t: 22,
+    company: simpleCompany
+}
+
+
+console.log(simpleTruck, simpleTruck2);

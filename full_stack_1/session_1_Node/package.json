@@ -13,7 +13,8 @@
     "example7": "node ./example7.js",
     "example8": "node ./example8.js",
     "example9": "node ./example9.js",
-    "example10": "npx tsx ./example9.ts"
+    "example10": "npx tsx ./example9.ts",
+    "example11": "npx tsx ./example10.ts"
   },
   "keywords": [],
   "author": "Arvids Ivbuls",
