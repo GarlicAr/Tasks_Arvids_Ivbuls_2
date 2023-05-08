@@ -1,16 +1,10 @@
 from controllers.ControllerActor import ControllerActor
 
 
-
-class ControllerActorWarrior(ControllerActor):
+class ControllerActorRider(ControllerActor):
     def __init__(self, actor):
         self.actor = actor
         super().__init__()
-
-
-
-
-
 
 
 
@@ -18,4 +12,5 @@ class ControllerActorWarrior(ControllerActor):
         self.actor.position+=1
 
     def execute_turn(self):
-        return 2
+        step_size = 2
+        pass

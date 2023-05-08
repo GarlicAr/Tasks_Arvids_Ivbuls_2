@@ -4,6 +4,7 @@ import pygame
 
 from controllers.ControllerGame import ControllerGame
 from models.enums import EnumMapTileType
+from controllers.ControllerActorWarrior import ControllerActorWarrior
 
 
 class WindowMain:
@@ -24,6 +25,13 @@ class WindowMain:
         self.surface_actor = pygame.image.load(
             "./resources/Tribes/Imperius/Imperius game.png"
         )
+
+        self.warrior = pygame.image.load(
+            "./resources/Tribes/Imperius/Units/warrior.png"
+        )
+
+        self.rider = pygame.image.load(
+            "./resources/Tribes/Imperius/Units/rider.png")
 
 
 
@@ -78,6 +86,11 @@ class WindowMain:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.pos_x-=15
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.pos_x*ControllerActorWarrior.execute_turn(self)
+                    self.pos_y*ControllerActorWarrior.execute_turn(self)
+
 
 
     def draw(self):
@@ -92,6 +105,9 @@ class WindowMain:
                     self.screen.blit(
                         self.surface_dummy_water,
                         dest=((j * 52)+offset , (i * 15)))
+
+
+                    #Ground
                 if self.game.map_tiles[i][j].tile_type == EnumMapTileType.EnumMapTileType.Ground:
                     if i % 2 == 0:
                         offset = 26
@@ -103,7 +119,9 @@ class WindowMain:
 
 
 
-        self.screen.blit(self.surface_actor, dest=(self.pos_x, self.pos_y))
+        self.screen.blit(self.warrior, dest=(self.pos_x-40, self.pos_y))
+        self.screen.blit(self.rider, dest=(self.pos_x, self.pos_y))
+
 
 
 

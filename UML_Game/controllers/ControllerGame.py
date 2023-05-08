@@ -29,6 +29,7 @@ class ControllerGame:
 
                 map_tile.tile_type=random_tile_type
 
+
                 game.map_tiles[j].append(map_tile)
 
         return game
@@ -37,6 +38,9 @@ class ControllerGame:
 
         map_tile_default = MapTile()
         map_tile_default.tile_type = EnumMapTileType.Ground
+
+
+
 
 
 

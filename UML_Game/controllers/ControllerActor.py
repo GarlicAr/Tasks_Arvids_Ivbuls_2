@@ -10,3 +10,6 @@ class ControllerActor(abc.ABC):
     @abstractmethod
     def update(self, delta_time):
         pass
+
+    def execute_turn(self):
+        pass
