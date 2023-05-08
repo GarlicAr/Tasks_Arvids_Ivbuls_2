@@ -92,9 +92,6 @@ class WindowMain:
                     self.screen.blit(
                         self.surface_dummy_water,
                         dest=((j * 52)+offset , (i * 15)))
-            #Ground
-        for i in range(self.game.map_size.x):
-            for j in range(self.game.map_size.y):
                 if self.game.map_tiles[i][j].tile_type == EnumMapTileType.EnumMapTileType.Ground:
                     if i % 2 == 0:
                         offset = 26
@@ -102,7 +99,9 @@ class WindowMain:
                         offset = 0
                     self.screen.blit(
                         self.surface_dummy,
-                        dest=((j * 52)+offset, (i * 15)))
+                        dest=((j * 52) + offset, (i * 15)))
+
+
 
         self.screen.blit(self.surface_actor, dest=(self.pos_x, self.pos_y))
 
