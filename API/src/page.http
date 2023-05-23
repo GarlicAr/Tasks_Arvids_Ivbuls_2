@@ -1,0 +1,4 @@
+curl -X POST \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@2019-9-29-3598D5B3-4ED8-462F-9B8C-321877B6CA2B.json" \
+  "http://localhost:8000/calculate_stats?species=setosa"
