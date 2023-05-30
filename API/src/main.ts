@@ -19,7 +19,7 @@ interface IrisData {
     species: string;    
 }
   
-app.post('/calculate_stats', (req, res) => {
+app.post('/calculate', (req, res) => {
     const species = req.query.species as string;
 
     const rawData: IrisData[] = JSON.parse(fs.readFileSync(req.files[0].path, 'utf8'));

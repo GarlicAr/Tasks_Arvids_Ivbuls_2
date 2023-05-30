@@ -1,5 +1,7 @@
 import random
+from typing import List
 
+from controllers.ControllerActor import ControllerActor
 from models.Game import Game
 from models.MapTile import MapTile
 from models.Vector2D import Vector2D
@@ -7,6 +9,8 @@ from models.enums.EnumMapTileType import EnumMapTileType
 
 
 class ControllerGame:
+    def __init__(self):
+        self.__actor_controllers: List[ControllerActor] = []
 
     @staticmethod
     def new_game():
