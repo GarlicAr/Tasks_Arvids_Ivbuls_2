@@ -37,8 +37,16 @@ const main = async () => {
                 habits: []
             };
             const sessionToken = req.headers.authorization;
+            console.log('=========');
+            console.log('=========');
+            console.log('=========');
+            console.log(sessionToken);
+            console.log('=========');
+            console.log('=========');
+            console.log('=========');
             if (sessionToken){
                 const session = await ControllerDatabase.instance.getSessionByToken(sessionToken);
+                console.log(session);
                 if (session && session.is_valid) {
                     const habits = await ControllerDatabase.instance.getHabitsByUserId(session.user_id);
                     response.success = true;
