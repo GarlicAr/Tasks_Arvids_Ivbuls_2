@@ -28,6 +28,13 @@ swaggerUi.setup(undefined, {
 },
 ));
 
+app.post("/user/register", (req, res) => {
+    // Code to send confirmation email and handle user registration
+    // You can access the necessary data from the request body (req.body)
+    // Send confirmation URL to the provided email address
+    res.send("Confirmation email sent.");
+  });
+
 app.listen(PORT, () => {
     console.log(`server running on localhost:${PORT}`);
 });

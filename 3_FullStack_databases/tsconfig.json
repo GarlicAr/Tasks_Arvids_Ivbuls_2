@@ -6,6 +6,7 @@
     "outDir": "dest",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    
   },
   "exclude": [
     "node_modules",
