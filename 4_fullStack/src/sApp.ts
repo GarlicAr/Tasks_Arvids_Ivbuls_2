@@ -28,11 +28,30 @@ swaggerUi.setup(undefined, {
 },
 ));
 
-app.post("/user/register", (req, res) => {
-    // Code to send confirmation email and handle user registration
-    // You can access the necessary data from the request body (req.body)
-    // Send confirmation URL to the provided email address
-    res.send("Confirmation email sent.");
+app.post("/user/register", async (req, res) => {
+    const { email } = req.body;
+    
+    //Todo
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: false,
+        auth:{
+            user: 'arvidsivbuls@gmail.com',
+            pass: 'password'
+        }
+    });
+
+    let result =  await transporter.sendMail({
+        from: 'arvidsivbuls@gmail.com',
+        to: email,
+        subject: 'Registration successfull!',
+        text: 'Your register was succesfull!',
+
+
+    })
+
   });
 
 app.listen(PORT, () => {
