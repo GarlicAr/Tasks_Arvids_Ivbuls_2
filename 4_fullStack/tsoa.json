@@ -1,0 +1,15 @@
+{
+    "entryFile": "./src/sApp.ts",
+    "spec":{
+        "outputDirectory": "public",
+        "specVersion": 3
+    },
+    "routes":{
+        "basePath": "/",
+        "entryFile":"./src/sApp.ts",
+        "routesDir": "./src/routers",
+        "controllerPathGlobs": [
+            "./src/controllers/**.ts"
+        ]
+    }
+}
