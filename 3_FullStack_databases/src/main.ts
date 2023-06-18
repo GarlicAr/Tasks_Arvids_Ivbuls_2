@@ -37,13 +37,6 @@ const main = async () => {
                 habits: []
             };
             const sessionToken = req.headers.authorization;
-            console.log('=========');
-            console.log('=========');
-            console.log('=========');
-            console.log(sessionToken);
-            console.log('=========');
-            console.log('=========');
-            console.log('=========');
             if (sessionToken){
                 const session = await ControllerDatabase.instance.getSessionByToken(sessionToken);
                 console.log(session);
@@ -56,7 +49,20 @@ const main = async () => {
             res.json(response);
         });
 
-        // TODO
+        
+        app.get('/send',async (req, res) => {
+
+            const transporter = nodemailer.createTransport({
+                host: '',
+                port: 465,
+                secure: false,
+                auth: {
+                    user: '',
+                    pass: ''
+                }
+            });
+            
+        })
 
         app.listen(
             8000,
@@ -65,6 +71,9 @@ const main = async () => {
                 console.log('Server started http://localhost:8000');
             }
         )
+
+
+
     }
     catch (e) {
         console.log(e);
