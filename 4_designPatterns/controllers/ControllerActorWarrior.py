@@ -1,5 +1,6 @@
 import random
 
+from controllers.ControllerGame import ControllerGame
 from controllers.interfaces.IControllerActor import IControllerActor
 from models.Actor import Actor
 
@@ -19,6 +20,7 @@ class ControllerActorWarrior(IControllerActor):
         self.is_moving = True
         self.actor.position_target.x = self.actor.position.x + random.randint(-3, 3)
         self.actor.position_target.y = self.actor.position.y + random.randint(-3, 3)
+        ControllerGame.instance().game.stars += 1
 
     def update(self, delta_time):
         if self.is_moving:

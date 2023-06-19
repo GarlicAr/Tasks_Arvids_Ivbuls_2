@@ -11,7 +11,19 @@ from models.enums.EnumMapTile import EnumMapTile
 
 
 class ControllerGame:
+    __instance = None
 
+    @staticmethod
+    def instance():
+        if ControllerGame.__instance is None:
+                ControllerGame.__instance = ControllerGame()
+            return ControllerGame.__instance
+
+    def __init__(self):
+        if ControllerGame.__instance is not None:
+            raise Exception("Only one instance of singleton allowed")
+        ControllerGame.__instance = self
+        self.game = None
     @staticmethod
     def new_game():
         game = Game()

@@ -14,6 +14,8 @@ from models.enums.EnumActor import EnumActor
 from models.enums.EnumBuilding import EnumBuilding
 from models.enums.EnumMapTile import EnumMapTile
 from models.enums.EnumTribe import EnumTribe
+
+from factories import ActorFactory
 from utils.iterator.CollectionActorControllers import CollectionActorControllers
 from views.components.ComponentButton import ComponentButton
 from views.resources.ResourcesHoodrick import ResourcesHoodrick
@@ -23,7 +25,19 @@ from views.resources.interfaces.IResourceFactory import IResourceFactory
 MAP_MOVEMENT_SPEED = 30
 
 class WindowMain:
+    __instance = None
+
+    @staticmethod
+    def instance():
+        if WindowMain.__instance is None:
+            WindowMain.__instance = WindowMain()
+        return WindowMain.__instance
+
+
     def __init__(self):
+        if WindowMain.__instance is not None:
+            raise Exception("Only one instance of singleton allowed!")
+        WindowMain.__instance = self
         pygame.init()
 
         self.screen = pygame.display.set_mode(
@@ -92,7 +106,7 @@ class WindowMain:
         self.new_game()
 
     def new_game(self):
-        self.game = ControllerGame.new_game()
+        self.game = ControllerGame.instance().new_game()
 
         # remove buttons that are linked with game elements
         self.ui_components = [it for it in self.ui_components if it.linked_item is None]
@@ -134,19 +148,15 @@ class WindowMain:
                 ui_button.is_visible = False
 
     def on_click_create_actor(self, button: ComponentButton):
-        # TODO create factory for actors
-        actor = Actor()
-        actor.position = self.selected_building.position.copy()
-        actor.position.x += random.randint(-2, 2)
-        actor.position.y += random.randint(-2, 2)
-        actor.tribe = self.selected_building.tribe
-        actor.actor_type = button.linked_enum
+        actor_type = button.linked_enum
+        actor_factory = ActorFactory()
+        actor = actor_factory.create_actor(actor_type, self.selected_building.position, self.selected_building.tribe)
         controller = None
-        if actor.actor_type == EnumActor.Warrior:
+        if actor_type == EnumActor.Warrior:
             controller = ControllerActorWarrior(actor)
-        elif actor.actor_type == EnumActor.Rider:
+        elif actor_type == EnumActor.Rider:
             controller = ControllerActorRider(actor)
-        elif actor.actor_type == EnumActor.Knight:
+        elif actor_type == EnumActor.Knight:
             controller = ControllerActorKnight(actor)
         self.controllers_actors.append(controller)
         self.game.actors.append(actor)
