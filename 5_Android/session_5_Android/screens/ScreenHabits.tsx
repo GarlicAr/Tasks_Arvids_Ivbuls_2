@@ -8,7 +8,7 @@ interface Props{
 }
 
 interface State{
-    habits: string[],
+    habits: Habit[],
     currentHabit: string
 
 }
@@ -18,16 +18,22 @@ export class ScreenHabits extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            habits: [
-                `Read a book`,
-                `Go to the gym`
+            habits:[
+                {
+                    title: 'Read a book!',
+                },
+                {
+                    title: 'Read a comic!'
+                }
             ],
-            currentHabit: ""
+            currentHabit: ''
+            }
         };
     }
 
     onAddHabit = () => {
-        let habits = this.state.habits;
+        let habits: Habit[];
+        habits = this.state.habits;
 
         if (this.state.currentHabit != ""){
             habits.push(this.state.currentHabit);
@@ -78,7 +84,7 @@ export class ScreenHabits extends React.Component<Props, State> {
                 {this.state.habits.map((habit, i) => (
                     <ComponentHabitListItem
                         key={`habit: ${i}`}
-                        habit={`${i + 1}. ${habit}`}
+                        habit={habit}
                         onDelete={this.onDeleteHabit}
                         onUpdate={this.onUpdateHabit}
                     />

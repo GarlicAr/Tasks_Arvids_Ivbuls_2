@@ -67,7 +67,7 @@ export class ComponentHabitListItem extends React.Component<Props, State> {
                     value={updatedText}
                     onChangeText={this.handleTextChange}
                     onBlur={this.endEditing}
-                    onKeyDown={this.handleKeyPress}
+                    onKeyDown={this.startEditing()}
                     autoFocus
                 />
             );
