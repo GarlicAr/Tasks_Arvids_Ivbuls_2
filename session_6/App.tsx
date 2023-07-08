@@ -8,14 +8,15 @@
 import React, { useState } from "react";
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 
 import {
   Colors,
@@ -26,10 +27,18 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { ScreenUserRegister } from "./src/screens/ScreenUserRegister";
 import { ScreenUserRegisterHooks } from "./src/screens/ScreenUserRegisterHooks";
+import { ScreenUserPictureHooks } from "./src/screens/ScreenUserPictureHooks";
+import { ScreenCalendarHooks } from "./src/screens/ScreenCalendarHooks";
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
+
+interface User {
+  username: string;
+  email: string;
+  password: string;
+}
 
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -59,14 +68,57 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [currentScreen, setCurrentScreen] = useState(`ScreenUserRegisterHooks`);
+  const [userData, setUserData] = useState<User | null>(null);
+  const [showCalendarButton, setShowCalendarButton] = useState(true);
+
+  const handleRegisterDone = (user: User) => {
+    setUserData(user);
+    setCurrentScreen('ScreenUserPictureHooks');
+  };
+
+  const handleBack = () => {
+    setCurrentScreen('ScreenUserRegisterHooks');
+    setShowCalendarButton(true);
+  };
+
+  const handleCalendarOpen = () => {
+    setCurrentScreen('ScreenCalendarHooks');
+    setShowCalendarButton(false);
+  };
+
+  return (
+    <View style={{ flex: 1 }}>
+      {currentScreen === 'ScreenUserRegisterHooks' && (
+        <ScreenUserRegisterHooks
+          default_email={'arvids@arvids.lv'}
+          onRegisterDone={handleRegisterDone}
+        />
+      )}
+
+      {currentScreen === 'ScreenUserPictureHooks' && (
+        <ScreenUserPictureHooks userData={userData} />
+      )}
+
+      {currentScreen === 'ScreenCalendarHooks' && (
+        <ScreenCalendarHooks  />
+      )}
+
+      {showCalendarButton && (
+        <Button title={'Calendar'} onPress={handleCalendarOpen} />
+      )}
+    </View>
+  );
+
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  return <ScreenUserRegisterHooks default_email={'arvids@arvids.lv'} />;
+
 
   return (
     <SafeAreaView style={backgroundStyle}>

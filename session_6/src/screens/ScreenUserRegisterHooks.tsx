@@ -1,9 +1,11 @@
 import { Button, StyleSheet, TextInput, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeviceInfo from "react-native-device-info";
 
 interface Props {
   default_email:string;
+  onRegisterDone: CallableFunction;
+
 }
 interface State {
   username: string;
@@ -16,12 +18,29 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }
 });
-export function ScreenUserRegisterHooks({default_email}: Props) {
+export function ScreenUserRegisterHooks({default_email, onRegisterDone}: Props) {
   const [state, setState] = useState({
     username: ``,
     email: ``,
     password: ``,
   }as State);
+
+  const load = () => {
+    DeviceInfo.getDeviceName()
+      .then((defaultUsername) => {
+        setState({ ...state, username: defaultUsername });
+      })
+      .catch((error) => {
+
+      });
+  };
+
+
+  useEffect(()=> {
+    load();
+
+  }, []);
+
 
   const registerUser = () => {
     const { username, email, password } = state;
@@ -37,7 +56,8 @@ export function ScreenUserRegisterHooks({default_email}: Props) {
       password: password,
     };
 
-    console.log(newUser);
+    onRegisterDone(newUser);
+
   }
 
   return(
