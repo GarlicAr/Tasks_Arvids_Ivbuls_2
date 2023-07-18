@@ -7,12 +7,12 @@ import { useNavigation } from "@react-navigation/native";
 function ComponentDrawer(props) {
   const navigation = useNavigation();
 
-  return <DrawerContentScrollView>
+  return (<DrawerContentScrollView>
     <DrawerItem label={"Settings"} onPress={()=>{
       //@ts-ignore
       navigation.navigate("ScreenSettings");
     }}/>
-  </DrawerContentScrollView>
+  </DrawerContentScrollView>)
 }
 
 export default ComponentDrawer;

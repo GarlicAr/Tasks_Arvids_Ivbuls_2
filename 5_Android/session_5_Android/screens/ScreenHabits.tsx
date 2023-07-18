@@ -4,7 +4,7 @@ import {ComponentHabitListItem} from "../components/ComponentHabitListItem";
 import {Habit} from "../models/Habit";
 
 interface Props{
-    title?: String;
+    title?: string;
 }
 
 interface State{
@@ -31,82 +31,81 @@ export class ScreenHabits extends React.Component<Props, State> {
         };
     }
 
-    onAddHabit = () => {
-        let habits: Habit[];
-        habits = this.state.habits;
+onAddHabit = () => {
 
-        if (this.state.currentHabit != ""){
-            habits.push(this.state.currentHabit);
+
+        if (this.state.currentHabit !== "") {
+            const newHabit: Habit = {
+                title: this.state.currentHabit,
+            };
+
+            this.setState((prevState: State) => ({
+                habits: [...prevState.habits, newHabit],
+                currentHabit: "",
+            }));
+
+            Keyboard.dismiss();
+        } else {
+            alert("Please insert a habit!");
         }
-        else alert("Please insert a habit!");
 
 
-        this.setState({
-            habits: habits,
-            currentHabit: ""
 
-        })
-
-        Keyboard.dismiss();
-    }
+};
 
 
-    onDeleteHabit = (habit: string) =>{
+onDeleteHabit = (habit: Habit) => {
 
-        let habits = this.state.habits;
-        let idx = habits.indexOf(habit);
+    this.setState((prevState: State) => ({
+        habits: prevState.habits.filter((h) => h !== habit),
+    }));
+};
 
-        habits.splice(idx);
+onUpdateHabit = (habitToUpdate: Habit, updatedHabitTitle: string) => {
+    const updatedHabits: Habit[] = this.state.habits.map((habit: Habit) =>
+        habit === habitToUpdate ? { ...habit, title: updatedHabitTitle } : habit
+    );
 
-        this.setState({
-            habits: habits
-        });
-    }
-
-    onUpdateHabit = (habit: string, updatedHabit: string) => {
-        let habits = [...this.state.habits];
-        let idx = habits.indexOf(habit);
-
-        if (idx !== -1) {
-            habits[idx] = updatedHabit;
-            this.setState({
-                habits: habits,
-            });
-        }
-    };
+    this.setState({
+        habits: updatedHabits,
+    });
+};
 
 
 
 
-    render = () => {
-        return (
-            <View style={{ flex: 1, marginBottom: 20 }}>
-                {this.state.habits.map((habit, i) => (
-                    <ComponentHabitListItem
-                        key={`habit: ${i}`}
-                        habit={habit}
-                        onDelete={this.onDeleteHabit}
-                        onUpdate={this.onUpdateHabit}
-                    />
-                ))}
 
-                <View style={{ flex: 1 }}></View>
-
-                <TextInput
-                    value={this.state.currentHabit}
-                    style={{
-                        borderWidth: 1,
-                        marginBottom: 10
-                    }}
-                    onChangeText={(newValue) =>
-                        this.setState({
-                            currentHabit: newValue
-                        })
+render = () => {
+    return (
+        <View style={{ flex: 1, marginBottom: 20 }}>
+            {this.state.habits.map((habit: Habit, i: number) => (
+                <ComponentHabitListItem
+                    key={`habit: ${i}`}
+                    habit={habit.title}
+                    onDelete={() => this.onDeleteHabit(habit)}
+                    onUpdate={(updatedHabit: string) =>
+                        this.onUpdateHabit(habit, updatedHabit)
                     }
-                ></TextInput>
+                />
+            ))}
 
-                <Button title={"Add habit"} onPress={this.onAddHabit}></Button>
-            </View>
-        );
-    };
-}
+            <View style={{ flex: 1 }}></View>
+
+            <TextInput
+                value={this.state.currentHabit}
+                style={{
+                    borderWidth: 1,
+                    marginBottom: 10,
+                }}
+                onChangeText={(newValue) =>
+                    this.setState({
+                        currentHabit: newValue,
+                    })
+                }
+            ></TextInput>
+
+            <Button title={"Add habit"} onPress={this.onAddHabit}></Button>
+        </View>
+    );
+};
+

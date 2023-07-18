@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function HomeScreenWrapper(){
-  return <Drawer.Navigator
+  return (<Drawer.Navigator
   initialRouteName="ScreenHome"
   drawerContent={(props) => <ComponentDrawer {...props} />}
   >
@@ -34,7 +34,7 @@ function HomeScreenWrapper(){
       }}
     />
 
-  </Drawer.Navigator>
+  </Drawer.Navigator>)
 }
 
 function AppStack () {
