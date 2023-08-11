@@ -18,4 +18,5 @@ export const strings = new LocalizedStrings({
   }
 })
 
-export const ContextStrings = createContext(strings.getLanguage())
+export const ContextStrings = createContext(
+  strings.getLanguage())

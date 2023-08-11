@@ -60,7 +60,7 @@ export function ScreenHabitAdd() {
           />
         )}
       >
-        <Icon name="My Icon" />
+
         <ListItem.Content
           // @ts-ignore
         data = { allHabits }
@@ -68,6 +68,7 @@ export function ScreenHabitAdd() {
         renderItem={({ item }) => (
 
           <View style={{ marginBottom: 10 }}>
+            <Icon name="My Icon" />
             <Text>Habit: {item.habit}</Text>
             <Text>Date: {item.date.toDateString()}</Text>
           </View>
