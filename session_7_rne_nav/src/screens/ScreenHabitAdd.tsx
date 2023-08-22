@@ -4,45 +4,20 @@ import {useNavigation} from '@react-navigation/native';
 import { strings } from "../utils/strings";
 import DatePicker from '@react-native-community/datetimepicker';
 import { Icon, ListItem } from "@rneui/themed";
-
-
+import {
+  date,
+  habit,
+  handleDateChange,
+  handleDeleteHabit,
+  handleSaveHabit, navigation,
+  setHabit,
+  setShowDatePicker,
+  showDatePicker,
+} from "../controllers/HabitController";
 
 export function ScreenHabitAdd() {
-  const navigation = useNavigation();
-  const [habit, setHabit] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [allHabits, setAllHabits] = useState([]);
 
-
-
-  const handleSaveHabit = () => {
-
-    const newHabit = { habit, date };
-    console.log('Habit and date saved:', newHabit);
-    setAllHabits(prevHabits => [...prevHabits, newHabit]);
-    // @ts-ignore
-    //navigation.navigate('ScreenHome', { allHabits });
-
-  };
-
-  const handleDateChange = (event, selectedDate) => {
-
-    const currentDate = selectedDate || date;
-    setShowDatePicker(false);
-    setDate(currentDate);
-
-  };
-
-  const handleDeleteHabit = (habit) => {
-    const updatedHabits = allHabits.filter((item) => item !== habit);
-    setAllHabits(updatedHabits);
-  };
-
-
-
-
-
+  // @ts-ignore
   return (
 
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

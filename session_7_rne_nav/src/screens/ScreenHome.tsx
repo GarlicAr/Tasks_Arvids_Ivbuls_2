@@ -6,104 +6,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Input } from "react-native-elements";
 import axios from "axios";
 import md5 from "crypto-js/md5";
-const API_TOKEN = "patgLCxXF1ysDmMcr.58369659ef90e3b61132f6e0eea55e266e5e61911dd7bb964b4ee908e9299f0b";
+import { isLoading, onLogin, onLogout, setUser, user } from "../controllers/LoginController";
 
 export function ScreenHome() {
-  let navigation = useNavigation();
-
-  const route = useRoute();
-  const [isLoading, setIsLoading] = useState(false);
-  const [ user, setUser ] = useState({
-    username: "",
-    password: "",
-    photo_url: "",
-    is_logged: false
-  })
-
-  interface Attachment {
-    width: number;
-    height: number;
-    url: string;
-  }
-  interface User {
-    user_id: number;
-    username: string;
-    password: string;
-    photo: Attachment[];
-  }
-
-
-  const onLogout = async () => {
-
-    if(user.is_logged) {
-      setUser({
-        username: "",
-        password: "",
-        is_logged: false,
-        photo_url: ""
-      })
-    }
-
-
-  }
-
-  const onLogin = async () => {
-    if (isLoading == false) {
-      setIsLoading(true);
-      try {
-        let response = await axios.get(
-          `https://api.airtable.com/v0/appvfE2hD5sjkU1Ta/Tasks`,
-          {
-            headers: {
-              Authorization: "Bearer " + API_TOKEN
-            }
-          }
-        );
-        let users: User[] = response.data.records.map(it => it.fields);
-
-        for (let userEach of users) {
-          if (userEach.username === user.username) {
-            if (userEach.password === md5(user.password).toString()) {
-              console.log("Login succesfull!");
-              setUser({
-                ...user,
-                is_logged: true,
-                photo_url: userEach.photo[0].url
-              });
-
-              break;
-            }
-          }
-        }
-
-        console.log(response.data);
-
-      } catch (e) {
-        console.error(e)
-      }
-      setIsLoading(false);
-    }
-
-  }
 
   // @ts-ignore
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
       <Text>{strings.home_title}</Text>
-
-      {/*<FlatList*/}
-      {/*  // @ts-ignore*/}
-      {/*  data={allHabits}*/}
-      {/*  keyExtractor={(item, index) => index.toString()}*/}
-      {/*  renderItem={({ item }) => (*/}
-      {/*    <View style={{ marginBottom: 10 }}>*/}
-      {/*      <Text>Habit: {item.habit}</Text>*/}
-      {/*      <Text>Date: {item.date.toDateString()}</Text>*/}
-      {/*    </View>*/}
-      {/*  )}*/}
-      {/*/>*/}
-
 
       {user.is_logged ? (
         <View style={{
